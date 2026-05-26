@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herbarium Culinare & Kitchen Log</title>
+    <style>
+        :root {
+            --bg-main: #faf9f6;
+            --panel-bg: #ffffff;
+            --text-main: #2b2927;
+            --text-muted: #7c7975;
+            --accent: #4a5d4e;
+            --accent-light: #f0f3f1;
+            --border: #e6e4e2;
+            --shadow: rgba(0, 0, 0, 0.02);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 24px;
+        }
+
+        h1 {
+            font-family: Georgia, serif;
+            font-size: 32px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        .controls {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            padding: 14px;
+            border-radius: 4px;
+            margin-bottom: 32px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            font-size: 14px;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: inherit;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .plant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 32px;
+        }
+
+        .plant-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px var(--shadow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 440px;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #fbfaf7;
+            padding: 8px;
+        }
+
+        .card-content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .names {
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        .norwegian-name {
+            font-family: Georgia, serif;
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--text-main);
+            display: block;
+        }
+
+        .scientific-name {
+            font-size: 13.5px;
+            font-style: italic;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .english-name {
+            font-size: 13.5px;
+            color: var(--text-muted);
+        }
+
+        .section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-top: 16px;
+            margin-bottom: 4px;
+        }
+
+        .section-text {
+            font-size: 14px;
+            color: var(--text-main);
+            text-align: justify;
+        }
+
+        .warning-box {
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #fffbf5;
+            border: 1px solid #f1e0cb;
+            font-size: 13px;
+            color: #664d30;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Herbarium Culinare</h1>
+        <p>A minimalist field guide and kitchen inventory of local flora, seasonal parameters, and culinary strategies.</p>
+    </header>
+
+    <div class="controls">
+        <input type="text" id="searchInput" class="search-box" placeholder="Filter by name, kitchen use, or keyword..." onkeyup="filterPlants()">
+    </div>
+
+    <div class="plant-grid" id="plantGrid">
+
+        <!-- 1. JONSOKKOLL -->
+        <div class="plant-card">
+            <div class="image-container">
+                <img src="images/jonsokkoll.png" alt="Jonsokkoll Botanical Sketch">
+            </div>
+            <div class="card-content">
+                <div class="names">
+                    <span class="norwegian-name">Jonsokkoll</span>
+                    <span class="scientific-name">Ajuga pyramidalis</span> &middot; <span class="english-name">Pyramidal Bugle</span>
+                </div>
+                <div class="section-title">Kitchen Placement</div>
+                <div class="section-text">Minor aesthetic accent, visual garnish, or components of a clean botanical infusion.</div>
+                <div class="section-title">How & When to Harvest</div>
+                <div class="section-text">Pluck whole spikes or individual flowers during early blooming phase between May and June. Focus on pristine woodland clearings.</div>
+                <div class="section-title">Preparation & Consumption</div>
+                <div class="section-text">Separate the small violet-blue flowers to toss fresh into cold summer salads. Leaves can be dried slowly for a mild, traditional herbal tea.</div>
+            </div>
+        </div>
+
+        <!-- 2. HØYMOL -->
+        <div class="plant-card">
+            <div class="image-container">
+                <img src="images/hoymol.png" alt="Høymol Botanical Sketch">
+            </div>
+            <div class="card-content">
+                <div class="names">
+                    <span class="norwegian-name">Høymol</span>
+                    <span class="scientific-name">Rumex obtusifolius</span> &middot; <span class="english-name">Broad-leaved Dock</span>
+                </div>
+                <div class="section-title">Kitchen Placement</div>
+                <div class="section-text">Acidic green base comparable to a robust, tart spinach or wild sorrel alternative.</div>
+                <div class="section-title">How & When to Harvest</div>
+                <div class="section-text">Harvest early spring growth only. Select young, bright-green, tender leaves at ground level before the massive central flower spike rises.</div>
+                <div class="section-title">Preparation & Consumption</div>
+                <div class="section-text">Blanch young leaves in fresh boiling water to mitigate intense bitterness. Sauté with butter, garlic, or cream to balance the lingering acidity.</div>
+                <div class="warning-box">
+                    <strong>Oxalic Acid:</strong> High volume present. Consume moderately. Boiling reduces acid content. Avoid mature leaves as they are unpalatably fibrous.
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. KRUSHØYMOL -->
+        <div class="plant-card">
+            <div class="image-container">
+                <img src="images/krushoymol.png" alt="Krushøymol Botanical Sketch">
+            </div>
+            <div class="card-content">
+                <div class="names">
+                    <span class="norwegian-name">Krushøymol</span>
+                    <span class="scientific-name">Rumex crispus</span> &middot; <span class="english-name">Curled Dock</span>
+                </div>
+                <div class="section-title">Kitchen Placement</div>
+                <div class="section-text">Sharp, lemony wild green providing deep, acidic accents to soups, stews, or savory reductions.</div>
+                <div class="section-title">How & When to Harvest</div>
+                <div class="section-text">Target highly crinkled, wavy leaves at the root rosette in early spring. Avoid the plant entirely once the central flower stalk begins development.</div>
+                <div class="section-title">Preparation & Consumption</div>
+                <div class="section-text">Process identically to broad-leaved dock. Strip the thick mid-ribs from larger leaves, boil briefly, then implement into warm egg dishes or rustic pies.</div>
+                <div class="warning-box">
+                    Contains notable quantities of oxalic acid. Ensure thorough cooking and prioritize structural tenderness.
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. BRENNESLE -->
+        <div class="plant-card">
+            <div class="image-container">
+                <img src="images/brennesle.png" alt="Brennesle Botanical Sketch">
+            </div>
+            <div class="card-content">
+                <div class="names">
+                    <span class="norwegian-name">Brennesle</span>
+                    <span class="scientific-name">Urtica dioica</span> &middot; <span class="english-name">Stinging Nettle</span>
+                </div>
+                <div class="section-title">Kitchen Placement</div>
+                <div class="section-text">Premier foundational wild green with a profound, iron-rich, savory umami profile superior to regular spinach.</div>
+                <div class="section-title">How & When to Harvest</div>
+                <div class="section-text">Utilize heavy gloves and sharp shears. Harvest from spring through mid-summer, selecting only the tender top four to six leaves of the stalk.</div>
+                <div class="section-title">Preparation & Consumption</div>
+                <div class="section-text">Submerge in boiling water for two minutes to completely neutralize the stinging trichomes. Shock in ice water, squeeze dry, and mince for wild pesto or traditional Norwegian neslesuppe.</div>
+            </div>
+        </div>
+
+        <!-- 5. LØVETANN -->
+        <div class="plant-card">
+            <div class="image-container">
+                <img src="images/lovetann.png" alt="Løvetann Botanical Sketch">
+            </div>
+            <div class="card-content">
+                <div class="names">
+                    <span class="norwegian-name">Løvetann</span>
+                    <span class="scientific-name">Taraxacum officinale</span> &middot; <span class="english-name">Dandelion</span>
+                </div>
+                <div class="section-title">Kitchen Placement</div>
+                <div class="section-text">Multi-tier kitchen asset yielding aromatic floral sugars, bitter salad greens, and roasted root compounds.</div>
+                <div class="section-title">How & When to Harvest</div>
+                <div class="section-text">Gather open flowers on dry, sunny afternoons. Cut pale, shaded leaves in spring for lower bitterness. Excavate deep taproots late in autumn.</div>
+                <div class="section-title">Preparation & Consumption</div>
+                <div class="section-text">Separate sweet yellow petals from green calyxes to formulate syrups or ferments. Sauté young leaves in premium olive oil. Clean, roast, and grind roots for a rich, dark espresso replacement.</div>
+            </div>
+        </div>
+
+        <!-- 6. FURU -->
+        <div class="plant-card">
+            <div class="image-container">
+                <img src="images/furu.png" alt="Furu Botanical Sketch">
+            </div>
+            <div class="card-content">
+                <div class="names">
+                    <span class="norwegian-name">Furu (Skudd)</span>
+                    <span class="scientific-name">Pinus sylvestris</span> &middot; <span class="english-name">Pine Shoots</span>
+                </div>
+                <div class="section-title">Kitchen Placement</div>
+                <div class="section-text">Bright, resinous, aromatic powder seasoning or direct citrus-herbal element for high-end desserts.</div>
+                <div class="section-title">How & When to Harvest</div>
+                <div class="section-text">Snap off soft, bright neon-green new growth shoots extending from branch tips in late spring. Leave the primary leading buds intact to ensure tree longevity.</div>
+                <div class="section-title">Preparation & Consumption</div>
+                <div class="section-text">Dehydrate completely at ultra-low heat until brittle while retaining vivid green coloration. Grind finely to create a structured "forest matcha" for dusting or natural cold infusions.</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function filterPlants() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toLowerCase();
+    const grid = document.getElementById('plantGrid');
+    const cards = grid.getElementsByClassName('plant-card');
+
+    for (let i = 0; i < cards.length; i++) {
+        const text = cards[i].innerText.toLowerCase();
+        if (text.includes(filter)) {
+            cards[i].style.display = "";
+        } else {
+            cards[i].style.display = "none";
+        }
+    }
+}
+</script>
+
+</body>
+</html>
